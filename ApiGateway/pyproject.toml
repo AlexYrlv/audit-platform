@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "apigateaway"
+version = "0.1.0"
+description = "FastAPI application"
+authors = ["Aleksandr Yurlov <Sasha.yur@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+fastapi = "0.116.1"
+fastabc = "0.2.3"
+commandlinestart = "0.2.2"
+frpclnt = "^0.4.0"
+jinja2 = "^3.1.6"
+grpcio-tools = "^1.64.0"
+aiokafka = "0.12.0"
+fpiaioact = "1.0.3"
+config_fastapi = { version = "^1.0.1", source = "config_fastapi"}
+grpclnt = { version = "^1.0.0", source = "grpclnt"}
+kafkabus  = { version = "^1.0.8", source = "kafkabus"}
+prometheus-fastapi-instrumentator = "^7.1.0"
+
+
+[[tool.poetry.source]]
+name = "config_fastapi"
+url = "https://dl.cloudsmith.io/basic/test-bex3/config_fastapi/python/simple/"
+priority = "supplemental"
+
+[[tool.poetry.source]]
+name = "grpclnt"
+url = "https://dl.cloudsmith.io/basic/test-bex3/grpclnt/python/simple/"
+priority = "supplemental"
+
+[[tool.poetry.source]]
+name = "kafkabus"
+url = "https://dl.cloudsmith.io/basic/test-bex3/kafkabus/python/simple/"
+priority = "supplemental"
+
+[build-system]
+requires = ["poetry-core>=1.2.0"]
+build-backend = "poetry.core.masonry.api"

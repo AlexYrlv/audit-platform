@@ -1,0 +1,81 @@
+openapi: 3.0.3
+info:
+  title: API Gateway
+  version: "1.0.0"
+
+paths:
+  /audit/targets:
+    get:
+      summary: Получить список целей для аудита
+      description: |
+        Возвращает список доступных целей (устройств или подсетей) для последующего запуска аудита.
+        Данные получаются по gRPC из NetBox-сервиса.
+      responses:
+        "200":
+          description: Список целей для аудита
+          content:
+            application/json:
+              example:
+                target_ids:
+                  - "sw-core-1"
+                  - "sw-access-5"
+                  - "router-edge-1"
+
+  /audit/run:
+    post:
+      summary: Запустить аудит сети
+      description: |
+        Создаёт задачу на полный аудит сети для заданных целей и публикует её в Kafka (`audit_requests`).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - target
+                - target_type
+              properties:
+                target:
+                  type: string
+                  example: "sw-core-1"
+                target_type:
+                  type: string
+                  enum: ["device", "subnet"]
+                  example: "device"
+                task_id:
+                  type: string
+                  description: Идентификатор задачи (если не указан — генерируется автоматически)
+            example:
+              target: "sw-core-1"
+              target_type: "device"
+      responses:
+        "200":
+          description: Задача на аудит успешно создана
+          content:
+            application/json:
+              example:
+                task_id: "audit-20250804-001"
+                target: "sw-core-1"
+                target_type: "device"
+                status: "scheduled"
+
+  /health:
+    get:
+      summary: Проверка сервиса
+      description: Проверяет, что сервис работает.
+      responses:
+        "200":
+          description: Сервис в рабочем состоянии
+          content:
+            application/json:
+              example:
+                status: "ok"
+
+  /metrics:
+    get:
+      summary: Метрики Prometheus
+      description: Возвращает метрики для Prometheus.
+      responses:
+        "200":
+          description: Метрики Prometheus

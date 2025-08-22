@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "audit"
+version = "1.0.0"
+description = "discovery and audit service"
+authors = ["Aleksandr Yurlov <Sasha.yur@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+commandlinestart = "^0.2.0"
+fpiaioact = "1.0.2"
+grpcio = "^1.62"
+protobuf = "^6.31.1"
+grpcio-tools = "^1.64.0"
+config_fastapi = { version = "^1.0.1", source = "config_fastapi"}
+kafkabus  = { version = "^1.0.8", source = "kafkabus"}
+grpclnt = {version = "1.0.2", source = "grpclnt"}
+
+[tool.poetry.group.dev.dependencies]
+grpcio-tools = "^1.64.0"
+
+[[tool.poetry.source]]
+name = "config_fastapi"
+url = "https://dl.cloudsmith.io/basic/test-bex3/config_fastapi/python/simple/"
+priority = "supplemental"
+
+[[tool.poetry.source]]
+name = "grpclnt"
+url = "https://dl.cloudsmith.io/basic/test-bex3/grpclnt/python/simple/"
+priority = "supplemental"
+
+[[tool.poetry.source]]
+name = "kafkabus"
+url = "https://dl.cloudsmith.io/basic/test-bex3/kafkabus/python/simple/"
+priority = "supplemental"
+
+[build-system]
+requires = ["poetry-core>=1.2.0"]
+build-backend = "poetry.core.masonry.api"

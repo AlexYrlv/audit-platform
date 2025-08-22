@@ -1,0 +1,67 @@
+openapi: 3.0.3
+info:
+  title: Audit Service
+  version: "1.0.0"
+
+paths:
+  /anomalies:
+    get:
+      summary: Список всех аномалий
+      description: Возвращает список всех найденных несоответствий.
+      responses:
+        "200":
+          description: Список аномалий
+          content:
+            application/json:
+              example:
+                anomalies:
+                  - device_id: "sw-core-1"
+                    type: "missing-interface"
+
+  /anomalies/{device_id}:
+    get:
+      summary: Аномалии конкретного устройства
+      parameters:
+        - name: device_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Список аномалий устройства
+          content:
+            application/json:
+              example:
+                anomalies:
+                  - type: "vlan-mismatch"
+
+  /audit/stats:
+    get:
+      summary: Статистика по аномалиям
+      responses:
+        "200":
+          description: Статистика
+          content:
+            application/json:
+              example:
+                devices_with_anomalies: 12
+                anomalies_total: 18
+
+  /health:
+    get:
+      summary: Проверка сервиса
+      responses:
+        "200":
+          description: Сервис работает
+          content:
+            application/json:
+              example:
+                status: "ok"
+
+  /metrics:
+    get:
+      summary: Метрики Prometheus
+      responses:
+        "200":
+          description: Метрики Prometheus

@@ -1,0 +1,19 @@
+x-build-common: &build_args
+  context: .
+  dockerfile: Dockerfile
+  args:
+    CLOUDSMITH_USER: "__token__"
+    CLOUDSMITH_TOKEN: ${CLOUDSMITH_TOKEN}
+
+services:
+  audit_discovery:
+    build: *build_args
+    container_name: audit_discovery
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    command: python manage.py workers audit
+    restart: always
+    mem_limit: 512m
+    mem_reservation: 256m

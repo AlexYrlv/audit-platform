@@ -1,0 +1,17 @@
+version: "3"
+
+tasks:
+  grpc:gen:
+    desc: Генерация pb2-файлов в proto/
+    cmds:
+      - |
+        python -m grpc_tools.protoc \
+          -I. \
+          --python_out=. \
+          --grpc_python_out=. \
+          proto/netbox.proto
+    sources:
+      - proto/*.proto
+    generates:
+      - proto/*_pb2.py
+      - proto/*_pb2_grpc.py.py

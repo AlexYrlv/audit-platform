@@ -1,0 +1,91 @@
+openapi: 3.0.3
+info:
+  title: NetBox Service
+  version: "1.0.0"
+
+paths:
+  /targets:
+    get:
+      summary: Список целей для аудита
+      description: Возвращает список целей (устройств или подсетей), закэшированных в Redis или полученных напрямую из NetBox.
+      responses:
+        "200":
+          description: Список целей
+          content:
+            application/json:
+              example:
+                target_ids:
+                  - "sw-core-1"
+                  - "router-edge-2"
+
+  /sync:
+    post:
+      summary: Синхронизация с NetBox
+      description: Выполняет синхронизацию данных NetBox с кэшем в Redis.
+      responses:
+        "200":
+          description: Синхронизация выполнена
+          content:
+            application/json:
+              example:
+                synced_devices: 230
+
+  /devices:
+    get:
+      summary: Список устройств
+      description: Возвращает список устройств.
+      responses:
+        "200":
+          description: Список устройств
+          content:
+            application/json:
+              example:
+                devices:
+                  - hostname: "sw-core-1"
+                    ip: "10.0.0.1"
+
+  /subnets:
+    get:
+      summary: Список подсетей
+      description: Возвращает список всех подсетей.
+      responses:
+        "200":
+          description: Список подсетей
+          content:
+            application/json:
+              example:
+                subnets:
+                  - "10.0.0.0/24"
+
+  /ips:
+    get:
+      summary: Список IP-адресов
+      description: Возвращает список всех IP-адресов.
+      responses:
+        "200":
+          description: Список IP
+          content:
+            application/json:
+              example:
+                ips:
+                  - "10.0.0.1"
+
+  /health:
+    get:
+      summary: Проверка сервиса
+      description: Проверяет состояние сервиса.
+      responses:
+        "200":
+          description: Сервис в рабочем состоянии
+          content:
+            application/json:
+              example:
+                status: "ok"
+
+  /metrics:
+    get:
+      summary: Метрики Prometheus
+      description: Возвращает метрики для Prometheus.
+      responses:
+        "200":
+          description: Метрики Prometheus

@@ -1,0 +1,47 @@
+version: '3'
+
+tasks:
+  env:ensure:
+    desc: Проверить/создать .env и заполнить переменные
+    cmds:
+      - |
+        set -e
+        [ -f .env ] || touch .env
+
+        # гарантируем разделители строк перед дозаписями
+        printf '\n' >> .env
+
+        # CLOUDSMITH_USER
+        grep -qE '^CLOUDSMITH_USER=' .env || { echo 'CLOUDSMITH_USER=__token__' >> .env; printf '\n' >> .env; }
+
+        # CLOUDSMITH_TOKEN — не генерим; только предупреждение, если отсутствует
+        if ! grep -qE '^CLOUDSMITH_TOKEN=' .env; then
+          echo "[warn] CLOUDSMITH_TOKEN отсутствует в .env — добавь свой токен!"
+        fi
+
+        # SECRET_KEY
+        if ! grep -qE '^SECRET_KEY=' .env; then
+          echo "SECRET_KEY=$(openssl rand -hex 32)" >> .env
+          echo "[env] SECRET_KEY generated"
+        fi
+
+        echo "---- .env ----"
+        cat .env
+        echo "--------------"
+
+  build:
+    desc: Собрать все образы
+    deps: [env:ensure]
+    cmds:
+      - docker compose build --no-cache
+
+  up:
+    desc: Поднять всё (build + up)
+    deps: [build]
+    cmds:
+      - docker compose up
+
+  down:
+    desc: Остановить и удалить всё
+    cmds:
+      - docker compose down

@@ -1,0 +1,39 @@
+# Python artifacts
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# VSCode & IDEs
+.vscode/
+.idea/
+.DS_Store
+
+# Coverage
+.coverage
+htmlcov/
+
+# Editor backups
+*~
+*.orig
+
+# Local configs
+.env
+*.conf
+*.log
+*.db
+
+# PyCharm, Tasks
+.notifier
+.task/
+
+# Compiled samples
+**/__pycache__/
+**/__samples__/

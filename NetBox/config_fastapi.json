@@ -1,0 +1,39 @@
+{
+    "app": {
+        "name": "NetBoxGrpcService"
+    },
+    "logging": {
+        "version": 1,
+        "disable_existing_loggers": false,
+        "formatters": {
+            "default": {
+                "format": "%(levelname)s - %(name)s - %(message)s"
+            }
+        },
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "formatter": "default"
+            }
+        },
+        "root": {
+            "level": "INFO",
+            "handlers": [
+                "console"
+            ]
+        }
+    },
+    "grpc": {
+        "host": "0.0.0.0",
+        "port": 50051
+    },
+    "netbox": {
+        "url": "http://netbox_external:8080",
+        "headers": {
+            "Authorization": "Token 64faff185e29ab8b7d7eb47713d10c5fae05e49d",
+            "Content-Type": "application/json",
+            "Host": "localhost"
+        },
+        "timeout": 5
+    }
+}

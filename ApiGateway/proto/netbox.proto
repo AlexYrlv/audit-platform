@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package netbox;
+
+// Сообщение с одной целью
+message Target {
+  string target = 1;       // Идентификатор цели (IP, hostname)
+  string target_type = 2;  // Тип цели (например, "device", "subnet")
+}
+
+// Запрос на получение целей (в данном случае без параметров)
+message GetTargetsRequest {}
+
+// Ответ с целями
+message GetTargetsResponse {
+  repeated Target targets = 1;
+}
+
+// gRPC сервис NetBox
+service NetBox {
+  rpc GetTargets (GetTargetsRequest) returns (GetTargetsResponse);
+}

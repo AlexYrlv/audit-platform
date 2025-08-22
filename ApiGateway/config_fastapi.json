@@ -1,0 +1,60 @@
+{
+    "app": {
+        "name": "MyFastAPIApp"
+    },
+
+    "monitor_enabled": true,
+
+    "logging": {
+        "version": 1,
+        "disable_existing_loggers": false,
+        "formatters": {
+            "default": {
+                "format": "%(levelname)s - %(name)s - %(message)s"
+            }
+        },
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "formatter": "default"
+            }
+        },
+        "loggers": {
+            "lifespan": {
+                "level": "DEBUG",
+                "handlers": ["console"],
+                "propagate": false
+            },
+            "health": {
+                "level": "INFO",
+                "handlers": ["console"],
+                "propagate": false
+            }
+        },
+        "root": {
+            "level": "INFO",
+            "handlers": ["console"]
+        }
+    },
+    "kafka": {
+        "connection": {
+            "alias": "default",
+            "bootstrap_servers": "kafka:9092",
+            "security_protocol": "PLAINTEXT",
+            "group_id": "my-group",
+            "ssl": null,
+            "sasl": null
+        },
+        "topics": {
+            "audit_requests": "audit_requests",
+            "audit_results": "audit_results",
+            "discrepancy_found": "discrepancy_found"
+        }
+    },
+
+    "netbox": {
+        "host": "netbox_grpc",
+        "port": 50051,
+        "timeout": 5
+    }
+}
