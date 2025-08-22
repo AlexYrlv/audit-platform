@@ -4,10 +4,6 @@ from ..kafka import KafkaPC
 
 
 class KafkaActor(Actor, BasePC):
-    """
-    Актор для получения сообщений из Kafka и передачи их в bus.
-    Работает только если consumer был инициализирован.
-    """
     def __init__(self):
         super().__init__(name="KafkaActor")
         self.kafka = KafkaPC()
